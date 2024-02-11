@@ -1,4 +1,5 @@
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -101,7 +102,13 @@ fun SearchScreen() {
                     items(results?.size ?: 0){
                         val name = results?.get(it)?.name
                         val code = results?.get(it)?.country_code
-                        Card {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                print(name)
+                            }
+                        ) {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
