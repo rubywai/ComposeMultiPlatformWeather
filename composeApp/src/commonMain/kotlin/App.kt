@@ -2,9 +2,12 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
@@ -25,9 +28,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import viewmodel.search.SearchDefault
 import viewmodel.search.SearchFailed
@@ -94,8 +100,16 @@ fun SearchScreen() {
                    val results = (searchState as SearchSuccess).searchModel.results
                     items(results?.size ?: 0){
                         val name = results?.get(it)?.name
+                        val code = results?.get(it)?.country_code
                         Card {
-                            Text(name ?: "")
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                if(code != null)
+                                FlagImage(countryCode = code)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(name ?: "")
+                            }
                         }
                     }
                 }
@@ -113,4 +127,13 @@ fun SearchScreen() {
         }
 
     }
+}
+@Composable
+fun FlagImage(countryCode: String) {
+    KamelImage(
+        resource = asyncPainterResource("https://flagsapi.com/${countryCode}/flat/64.png"),
+        contentDescription = countryCode,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier.width(100.dp),
+    )
 }
