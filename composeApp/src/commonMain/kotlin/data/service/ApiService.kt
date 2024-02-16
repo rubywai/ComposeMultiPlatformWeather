@@ -1,6 +1,7 @@
 package data.service
 
-import data.model.CitySearchModel
+import data.model.search.CitySearchModel
+import data.model.weather_detail.CurrentWeather
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -28,5 +29,12 @@ class ApiService {
            return httpClient.get("https://geocoding-api.open-meteo.com/v1/search") {
                 parameter("name", name)
             }.body<CitySearchModel>()
+    }
+    suspend fun getCurrentWeather(latitude : String, longitude : String,current : Boolean) : CurrentWeather{
+        return httpClient.get("https://api.open-meteo.com/v1/forecast"){
+            parameter("latitude",latitude)
+            parameter("longitude",longitude)
+            parameter("current_weather",current)
+        }.body<CurrentWeather>()
     }
 }

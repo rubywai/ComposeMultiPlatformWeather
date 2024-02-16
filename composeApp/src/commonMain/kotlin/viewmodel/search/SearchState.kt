@@ -1,6 +1,6 @@
 package viewmodel.search
 
-import data.model.CitySearchModel
+import data.model.search.CitySearchModel
 
 sealed class SearchState
 data object SearchDefault : SearchState()
