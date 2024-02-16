@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import io.kamel.image.KamelImage
@@ -43,12 +45,14 @@ import viewmodel.search.SearchSuccess
 import viewmodel.search.SearchViewModel
 
 class HomeScreen : Screen {
-  @Composable
+    @Composable
     override fun Content() {
         SearchScreen()
     }
+
     @Composable
     fun SearchScreen() {
+        val navigator = LocalNavigator.currentOrThrow
         var search by remember { mutableStateOf("") }
         val searchViewModel = getViewModel(Unit, viewModelFactory { SearchViewModel() })
         val searchState by searchViewModel.searchState.collectAsState()
@@ -94,11 +98,20 @@ class HomeScreen : Screen {
                         items(results?.size ?: 0) {
                             val name = results?.get(it)?.name
                             val code = results?.get(it)?.country_code
+                            val latitude = results?.get(it)?.latitude
+                            val longitude = results?.get(it)?.longitude
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        print(name)
+                                        if (latitude != null && longitude != null)
+                                            navigator.push(
+                                                WeatherDetailScreen(
+                                                    latitude,
+                                                    longitude,
+                                                    true
+                                                )
+                                            )
                                     }
                             ) {
                                 Row(
@@ -128,6 +141,7 @@ class HomeScreen : Screen {
 
         }
     }
+
     @Composable
     fun FlagImage(countryCode: String) {
         KamelImage(

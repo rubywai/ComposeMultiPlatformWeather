@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class SearchViewModel : ViewModel() {
     private val _searchState = MutableStateFlow<SearchState>(SearchDefault)
     val searchState = _searchState.asStateFlow()
-    private val apiService = ApiService()
+    private val apiService = ApiService() //later will implement with di
     fun search( name : String){
       viewModelScope.launch {
           _searchState.value = SearchLoading
