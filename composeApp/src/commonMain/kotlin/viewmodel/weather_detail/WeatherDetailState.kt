@@ -6,5 +6,5 @@ sealed class WeatherDetailState
 
 data object  WeatherDetailLoadingState : WeatherDetailState()
 
-class WeatherDetailSuccess(weather: CurrentWeather) : WeatherDetailState()
-class WeatherDetailFailed(errorMessage : String) : WeatherDetailState()
+class WeatherDetailSuccess(val weather: CurrentWeather) : WeatherDetailState()
+class WeatherDetailFailed(val errorMessage : String) : WeatherDetailState()

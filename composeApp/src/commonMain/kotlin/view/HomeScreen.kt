@@ -104,12 +104,13 @@ class HomeScreen : Screen {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        if (latitude != null && longitude != null)
+                                        if (latitude != null && longitude != null && name != null)
                                             navigator.push(
                                                 WeatherDetailScreen(
                                                     latitude,
                                                     longitude,
-                                                    true
+                                                    true,
+                                                    name,
                                                 )
                                             )
                                     }
