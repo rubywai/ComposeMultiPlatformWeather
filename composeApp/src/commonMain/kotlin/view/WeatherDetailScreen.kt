@@ -18,6 +18,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -61,8 +62,9 @@ data class WeatherDetailScreen(
             weatherDetailViewModel.getCurrentWeather(
                 latitude.toString(),
                 longitude.toString(),
-                current
+                current,
             )
+            print("launched effect is called")
         }
         Scaffold(
             topBar = {
@@ -122,6 +124,11 @@ data class WeatherDetailScreen(
                 }
             }
         }
+       DisposableEffect(key1 = weatherDetailViewModel){
+           onDispose {
+               print("Dispose is called")
+           }
+       }
     }
 }
 
