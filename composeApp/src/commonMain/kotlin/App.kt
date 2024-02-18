@@ -15,7 +15,7 @@ fun App() {
             primary = Color(0xff283593)
         )
     ) {
-       Navigator(screen = HomeScreen())
+        Navigator(screen = HomeScreen())
     }
 }
 

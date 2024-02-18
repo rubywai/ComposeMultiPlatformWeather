@@ -13,6 +13,8 @@ androidx-material = "1.11.0"
 androidx-constraintlayout = "2.1.4"
 androidx-test-junit = "1.1.5"
 androidx-espresso-core = "3.5.1"
+insert-koin-koinCore = "3.5.3"
+koinCore = "3.6.0"
 kotlin = "1.9.22"
 kotlinx-coroutines = "1.7.3"
 junit = "4.13.2"
@@ -22,6 +24,10 @@ kamel = "0.8.3"
 voyagerVersion = "1.0.0"
 
 [libraries]
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "insert-koin-koinCore" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "insert-koin-koinCore" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
+koin-core-v353 = { module = "io.insert-koin:koin-core", version.ref = "insert-koin-koinCore" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
