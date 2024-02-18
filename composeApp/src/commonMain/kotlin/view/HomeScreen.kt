@@ -34,10 +34,9 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.icerock.moko.mvvm.compose.getViewModel
-import dev.icerock.moko.mvvm.compose.viewModelFactory
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import org.koin.compose.koinInject
 import viewmodel.search.SearchDefault
 import viewmodel.search.SearchFailed
 import viewmodel.search.SearchLoading
@@ -51,10 +50,9 @@ class HomeScreen : Screen {
     }
 
     @Composable
-    fun SearchScreen() {
+    fun SearchScreen(searchViewModel: SearchViewModel = koinInject()) {
         val navigator = LocalNavigator.currentOrThrow
         var search by remember { mutableStateOf("") }
-        val searchViewModel = getViewModel(Unit, viewModelFactory { SearchViewModel() })
         val searchState by searchViewModel.searchState.collectAsState()
         Scaffold(
             topBar = {

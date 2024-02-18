@@ -57,6 +57,7 @@ kotlin {
             implementation(libs.voyager.transitions)
             //dependency injection (koin)
             implementation(libs.koin.core.v353)
+            implementation(libs.koin.compose)
         }
     }
 }

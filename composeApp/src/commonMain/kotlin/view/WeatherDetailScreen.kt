@@ -32,8 +32,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import dev.icerock.moko.mvvm.compose.getViewModel
-import dev.icerock.moko.mvvm.compose.viewModelFactory
+import org.koin.compose.koinInject
 import utils.toCondition
 import utils.toEmoji
 import viewmodel.weather_detail.WeatherDetailFailed
@@ -53,9 +52,7 @@ data class WeatherDetailScreen(
     }
 
     @Composable
-    fun WeatherDetailWidget() {
-        val weatherDetailViewModel =
-            getViewModel(Unit, viewModelFactory { WeatherDetailViewModel() })
+    fun WeatherDetailWidget(weatherDetailViewModel : WeatherDetailViewModel = koinInject()) {
         val weatherDetailState by weatherDetailViewModel.currentState.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         LaunchedEffect(weatherDetailViewModel) {
