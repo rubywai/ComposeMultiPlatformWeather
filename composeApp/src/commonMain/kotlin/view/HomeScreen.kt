@@ -58,7 +58,7 @@ class HomeScreen : Screen {
     @Composable
     fun SearchScreen(searchViewModel: SearchViewModel = koinInject()) {
         val themeViewModel : ThemeViewModel = koinInject()
-        val isSystemInDarkTheme = themeViewModel.isDarkTheme
+        val themeState = themeViewModel.isDarkTheme.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         var search by remember { mutableStateOf("") }
         val searchState by searchViewModel.searchState.collectAsState()
@@ -66,14 +66,14 @@ class HomeScreen : Screen {
             topBar = {
                 TopAppBar(
                     title = {
-                        Text("Weather Application ${isSystemInDarkTheme.value}")
+                        Text("Weather Application")
                     },
                     actions = {
                        Text("Dark Theme")
                         Switch(
-                            checked = isSystemInDarkTheme.value,
+                            checked = themeState.value,
                             onCheckedChange = {
-                                themeViewModel.changeTheme()
+                                themeViewModel.changeTheme(it)
                             }
                         )
                     }
