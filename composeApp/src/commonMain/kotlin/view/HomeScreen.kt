@@ -1,6 +1,7 @@
 package view
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -45,6 +47,7 @@ import viewmodel.search.SearchFailed
 import viewmodel.search.SearchLoading
 import viewmodel.search.SearchSuccess
 import viewmodel.search.SearchViewModel
+import viewmodel.theme.ThemeViewModel
 
 class HomeScreen : Screen {
     @Composable
@@ -54,6 +57,8 @@ class HomeScreen : Screen {
 
     @Composable
     fun SearchScreen(searchViewModel: SearchViewModel = koinInject()) {
+        val themeViewModel : ThemeViewModel = koinInject()
+        val isSystemInDarkTheme = themeViewModel.isDarkTheme
         val navigator = LocalNavigator.currentOrThrow
         var search by remember { mutableStateOf("") }
         val searchState by searchViewModel.searchState.collectAsState()
@@ -61,7 +66,16 @@ class HomeScreen : Screen {
             topBar = {
                 TopAppBar(
                     title = {
-                        Text("Weather Application")
+                        Text("Weather Application ${isSystemInDarkTheme.value}")
+                    },
+                    actions = {
+                       Text("Dark Theme")
+                        Switch(
+                            checked = isSystemInDarkTheme.value,
+                            onCheckedChange = {
+                                themeViewModel.changeTheme()
+                            }
+                        )
                     }
                 )
             },
