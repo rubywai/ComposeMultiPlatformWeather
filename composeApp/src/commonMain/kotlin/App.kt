@@ -18,6 +18,7 @@ fun App() {
         modules(appModule())
     }) {
         val themeViewModel = koinInject<ThemeViewModel>()
+
         val isDarkThemeState = themeViewModel.isDarkTheme.collectAsState()
         val color = if (isDarkThemeState.value) darkColors()
         else lightColors(
@@ -26,7 +27,7 @@ fun App() {
         MaterialTheme(
             colors = color,
         ) {
-            Navigator(screen = HomeScreen())
+            Navigator(screen = HomeScreen(themeViewModel = themeViewModel))
         }
     }
 }

@@ -49,15 +49,14 @@ import viewmodel.search.SearchSuccess
 import viewmodel.search.SearchViewModel
 import viewmodel.theme.ThemeViewModel
 
-class HomeScreen : Screen {
+class HomeScreen(val themeViewModel: ThemeViewModel) : Screen {
     @Composable
     override fun Content() {
-        SearchScreen()
+        SearchScreen(themeViewModel = themeViewModel)
     }
 
     @Composable
-    fun SearchScreen(searchViewModel: SearchViewModel = koinInject()) {
-        val themeViewModel : ThemeViewModel = koinInject()
+    fun SearchScreen(searchViewModel: SearchViewModel = koinInject(),themeViewModel: ThemeViewModel) {
         val themeState = themeViewModel.isDarkTheme.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         var search by remember { mutableStateOf("") }
