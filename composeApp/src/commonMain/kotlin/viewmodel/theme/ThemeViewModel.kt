@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.update
 class ThemeViewModel : ViewModel() {
     private val _isDarkTheme = MutableStateFlow(true)
     val isDarkTheme = _isDarkTheme.asStateFlow()
-    fun changeTheme(){
+    fun changeTheme(isDark :Boolean){
         _isDarkTheme.update {
-            !isDarkTheme.value
+            isDark
         }
     }
 }
