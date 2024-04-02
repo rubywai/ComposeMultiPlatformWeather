@@ -11,7 +11,7 @@ void main() {
     // Listen for requests
     server.listen((HttpRequest request) {
       // Construct the file path from the request URI
-      var file = File('$pathToServe${request.uri.path}');
+      var file = File('$pathToServe${Platform.pathSeparator}${request.uri.path}');
 
       // Check if the file exists
       file.exists().then((bool exists) {
