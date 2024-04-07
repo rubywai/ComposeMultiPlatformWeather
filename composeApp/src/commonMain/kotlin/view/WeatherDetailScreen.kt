@@ -1,6 +1,6 @@
 package view
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,15 +24,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import org.koin.compose.koinInject
 import utils.toCondition
 import utils.toEmoji
 import viewmodel.weather_detail.WeatherDetailFailed
@@ -52,7 +51,9 @@ data class WeatherDetailScreen(
     }
 
     @Composable
-    fun WeatherDetailWidget(weatherDetailViewModel : WeatherDetailViewModel = koinInject()) {
+    fun WeatherDetailWidget() {
+        val weatherDetailViewModel: WeatherDetailViewModel =
+            rememberScreenModel { WeatherDetailViewModel() }
         val weatherDetailState by weatherDetailViewModel.currentState.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         LaunchedEffect(weatherDetailViewModel) {
@@ -91,10 +92,10 @@ data class WeatherDetailScreen(
                 }
 
                 is WeatherDetailFailed -> Text("Failed")
-                is WeatherDetailSuccess -> ProvideTextStyle(value = TextStyle(color = Color.White)){
+                is WeatherDetailSuccess -> ProvideTextStyle(value = TextStyle()) {
+                    val isDarkTheme = isSystemInDarkTheme()
                     Column(
-                        modifier = Modifier.fillMaxSize()
-                            .background(Brush.verticalGradient(colorStops = colorAry)),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
@@ -121,11 +122,11 @@ data class WeatherDetailScreen(
                 }
             }
         }
-       DisposableEffect(key1 = weatherDetailViewModel){
-           onDispose {
-               print("Dispose is called")
-           }
-       }
+        DisposableEffect(key1 = weatherDetailViewModel) {
+            onDispose {
+                print("Dispose is called")
+            }
+        }
     }
 }
 
