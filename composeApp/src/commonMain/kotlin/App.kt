@@ -27,7 +27,7 @@ fun App() {
         MaterialTheme(
             colors = color,
         ) {
-            Navigator(screen = HomeScreen(themeViewModel = themeViewModel))
+            Navigator(screen = HomeScreen())
         }
     }
 }

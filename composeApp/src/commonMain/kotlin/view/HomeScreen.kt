@@ -1,7 +1,6 @@
 package view
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,6 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -36,12 +34,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import org.koin.compose.koinInject
 import viewmodel.search.SearchDefault
 import viewmodel.search.SearchFailed
 import viewmodel.search.SearchLoading
@@ -49,14 +48,16 @@ import viewmodel.search.SearchSuccess
 import viewmodel.search.SearchViewModel
 import viewmodel.theme.ThemeViewModel
 
-class HomeScreen(val themeViewModel: ThemeViewModel) : Screen {
+class HomeScreen : Screen {
     @Composable
     override fun Content() {
-        SearchScreen(themeViewModel = themeViewModel)
+        SearchScreen()
     }
 
     @Composable
-    fun SearchScreen(searchViewModel: SearchViewModel = koinInject(),themeViewModel: ThemeViewModel) {
+    fun SearchScreen() {
+        val searchViewModel: SearchViewModel = rememberScreenModel{SearchViewModel()}
+        val themeViewModel : ThemeViewModel = getScreenModel ()
         val themeState = themeViewModel.isDarkTheme.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
         var search by remember { mutableStateOf("") }

@@ -47,14 +47,14 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            //multiplatform view model
-            implementation(libs.moko.mvvm.core)
-            implementation(libs.moko.mvvm.compose)
+            //image loading library
             implementation(libs.kamel)
-            //navigation
+            //navigation and model
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.tab.navigator)
             implementation(libs.voyager.transitions)
+            implementation(libs.cafe.voyager.screenmodel)
+            implementation(libs.cafe.voyager.koin)
             //dependency injection (koin)
             implementation(libs.koin.core.v353)
             implementation(libs.koin.compose)

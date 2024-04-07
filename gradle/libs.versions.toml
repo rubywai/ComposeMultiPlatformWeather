@@ -22,9 +22,13 @@ junit = "4.13.2"
 ktor = "2.3.8"
 moko-mvvm = "0.16.1"
 kamel = "0.8.3"
+voyagerKoin = "1.0.0"
+voyagerScreenmodel = "1.0.0"
 voyagerVersion = "1.0.0"
 
 [libraries]
+cafe-voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerKoin" }
+cafe-voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyagerScreenmodel" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "insert-koin-koinCore" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "insert-koin-koinCore" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }

@@ -1,12 +1,12 @@
 package viewmodel.theme
 
 
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import cafe.adriel.voyager.core.model.ScreenModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class ThemeViewModel : ViewModel() {
+class ThemeViewModel : ScreenModel {
     private val _isDarkTheme = MutableStateFlow(true)
     val isDarkTheme = _isDarkTheme.asStateFlow()
     fun changeTheme(isDark :Boolean){
